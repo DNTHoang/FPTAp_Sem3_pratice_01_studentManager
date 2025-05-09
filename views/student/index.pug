@@ -1,0 +1,39 @@
+doctype html
+html(lang="en")
+  head
+    include ../include.pug
+    title Students List
+  body
+    div.container 
+      a(href="/student/create") Create new student
+      div 
+        form(action="/student/search" method="get")
+          label(for="keyword") Name: 
+          input(type="text" name="keyword")
+          input(type="submit" value="Search")
+      h1 Students List
+      table.table.table-striped.table-bordered
+        thead 
+          tr 
+            th Name 
+            th age 
+            th Email 
+            th Bio 
+            th Photo 
+            th Actions
+        tbody 
+          if students !=null && students.length>0
+            each item in students
+              tr 
+                td= item.name
+                td= item.age
+                td= item.email
+                td= item.bio
+                td
+                  img(src=`/images/${item.photoUrl}` alt=item.name width="100" height="auto")
+                td 
+                  a(href="/student/update/" + item._id) Update
+                  a(href="/student/delete/" + item._id) Delete
+          else 
+            tr
+              td(colspan="6") There are no students

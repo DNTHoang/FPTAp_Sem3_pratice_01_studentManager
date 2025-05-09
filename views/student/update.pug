@@ -1,0 +1,61 @@
+doctype html
+html(lang="en")
+  head
+    include ../include.pug
+    title Update student
+  body 
+    h1 Update student
+    a.btn.btn-primary(href="/student") Back to index
+    div 
+      if errors
+        ul 
+          each err in errors 
+            li= err.msg
+    form(action=`/student/update/${student._id}` method="post" enctype="multipart/form-data")
+      input(type="hidden", name="id" value=student._id)
+      div
+        label(for="name") Name 
+        input(id="name" type="text" name="name" value=student.name)
+        if errors 
+          each err in errors
+            if err.path == 'name'
+              span= err.msg
+      div
+        label(for="age") Age 
+        input(id="age" type="number" name="age" value=student.age)
+        if errors 
+          each err in errors
+            if err.path == 'age'
+              span= err.msg
+      div
+        label(for="email") Email 
+        input(id="email" type="email" name="email" value=student.email)
+        if errors 
+          each err in errors
+            if err.path == 'email'
+              span= err.msg
+      div
+        label(for="bio") Bio
+        input(id="bio" type="text" name="bio" value=student.bio)
+        if errors 
+          each err in errors
+            if err.path == 'bio'
+              span= err.msg
+      //- div
+      //-   label(for="gender") Gender
+      //-   select(id="gender" name="gender") 
+      //-     option(value="") Select gender
+      //-     option(value="Male") Male
+      //-     option(value="Female") Female
+      //-     option(value="Other") Other
+      if student.photoUrl!=null && student.photoUrl.length>0
+        img(src=`/images/${student.photoUrl}` alt=student.name width="100" height="auto")
+      div
+        label(for="image") Image 
+        input(id="image" type="file" name="image")
+        if errors 
+          each err in errors
+            if err.path == 'image'
+              span= err.msg
+      div
+        input(type="submit" value="Update")
