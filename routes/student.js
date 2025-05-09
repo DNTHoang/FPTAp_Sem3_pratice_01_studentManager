@@ -52,16 +52,17 @@ router.post(
 	],
 	async (req, res) => {
 		const errors = validationResult(req);
-		if (!req.file) {
-			return res.render('student/create', {errors: [{msg: 'Image is required', path: 'image'}]});
-		}
-		// var {name, age, email, bio} = req.body;
+		var {name, age, email, bio} = req.body;
 		const photoUrl = req.file ? req.file.filename : '';
 		// const student = {name, age, email, bio, photoUrl};
 		// await studentModel.create(student);
-		const student = new studentModel({name: req.body.name, age, email, bio, photoUrl});
+		const student = new studentModel({name, age, email, bio, photoUrl});
 		if (!errors.isEmpty()) {
-			return res.render('student/create', {errors: errors.errors,student:student});
+			// return res.render(`student/update`, {errors: errors.errors, student});
+			return res.render('student/create', {errors: errors.errors, student});
+		}
+		if (!req.file) {
+			res.render('student/create', {errors: [{msg: 'Image is required', path: 'image'}]});
 		}
 		await student.save();
 		return res.redirect('/student');

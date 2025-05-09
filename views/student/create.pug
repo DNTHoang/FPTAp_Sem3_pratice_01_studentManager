@@ -15,28 +15,28 @@ html(lang="en")
     form(action="/student/create" method="post" enctype="multipart/form-data")
       div
         label(for="name") Name 
-        input(id="name" type="text" name="name" value=student?.name??'')
+        input(id="name" type="text" name="name" value=student?student.name:'') 
         if errors 
           each err in errors
             if err.path == 'name'
               span= err.msg
       div
         label(for="age") Age 
-        input(id="age" type="number" name="age" value=student.age??'')
+        input(id="age" type="number" name="age" )
         if errors 
           each err in errors
             if err.path == 'age'
               span= err.msg
       div
         label(for="email") Email 
-        input(id="email" type="email" name="email" value=student.email??'')
+        input(id="email" type="email" name="email" )
         if errors 
           each err in errors
             if err.path == 'email'
               span= err.msg
       div
         label(for="bio") Bio
-        input(id="bio" type="text" name="bio" value=student.bio??'')
+        input(id="bio" type="text" name="bio" )
         if errors 
           each err in errors
             if err.path == 'bio'
